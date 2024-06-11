@@ -1,8 +1,9 @@
-﻿using Hydrogen.Abstraction.Helpers.Strings;
+﻿using Hydrogen.Abstraction.Enums;
+using Hydrogen.Abstraction.Helpers.Strings;
 
 namespace Hydrogen.Abstraction.Tests.Helpers.Strings;
 
-public class ConventionConvertorsTests
+public class NamingConventionConvertorsTests
 {
     [Theory]
     #region Inline data
@@ -18,11 +19,20 @@ public class ConventionConvertorsTests
     [InlineData("_ ")]
     [InlineData("_1")]
     [InlineData("_-")]
+    [InlineData("A_a")]
+    [InlineData("a_A")]
+    [InlineData("a_A_a")]
+    [InlineData("A_a_A")]
+    [InlineData("aAaA_")]
+    [InlineData("_AaAa")]
+    [InlineData("_aAaA")]
+    [InlineData("__aAaA")]
+    [InlineData("AaAa_")]
     #endregion
-    public void Helpers_Strings_DetectedCases_ShouldNotContain_AnyCase(string value)
+    public void Helpers_Strings_DetectedCases_ShouldNotContain_AnyCase(string name)
     {
         // Arrange and Act
-        var detectedCases = value.DetectCases();
+        var detectedCases = name.DetectCases();
 
         // Assert
         Assert.Empty(detectedCases);
@@ -30,116 +40,30 @@ public class ConventionConvertorsTests
 
     [Theory]
     #region Inline data
-    [InlineData("A", 
-        NamingConventions.UpperCase, 
-        NamingConventions.PascalCase)]
-
-    [InlineData("a",
-        NamingConventions.LowerCase,
-        NamingConventions.CamelCase)]
-
-    [InlineData("Aa", 
-        NamingConventions.PascalCase)]
-
-    [InlineData("aA",
-        NamingConventions.CamelCase)]
-
-    [InlineData("aa",
-        NamingConventions.CamelCase,
-        NamingConventions.LowerCase)]
-
-    [InlineData("A1",
-        NamingConventions.UpperCase,
-        NamingConventions.PascalCase)]
-
-    [InlineData("a1",
-        NamingConventions.LowerCase,
-        NamingConventions.CamelCase)]
-
-    [InlineData("A_",
-        NamingConventions.SnakeCase,
-        NamingConventions.UpperSnakeCase,
-        NamingConventions.PascalSnakeCase)]
-
-    [InlineData("a_",
-        NamingConventions.SnakeCase,
-        NamingConventions.LowerSnakeCase)]
-
-    [InlineData("A_a",
-        NamingConventions.SnakeCase)]
-
-    [InlineData("a_A",
-        NamingConventions.SnakeCase)]
-
-    [InlineData("A_A",
-        NamingConventions.SnakeCase,
-        NamingConventions.PascalSnakeCase,
-        NamingConventions.UpperSnakeCase)]
-
-    [InlineData("a_a",
-        NamingConventions.SnakeCase,
-        NamingConventions.LowerSnakeCase)]
-
-    [InlineData("A_1",
-        NamingConventions.SnakeCase,
-        NamingConventions.UpperSnakeCase,
-        NamingConventions.PascalSnakeCase)]
-
-    [InlineData("a_1",
-        NamingConventions.SnakeCase,
-        NamingConventions.LowerSnakeCase)]
-
-    [InlineData("AaAa",
-        NamingConventions.PascalCase)]
-
-    [InlineData("aAaA",
-        NamingConventions.CamelCase)]
-
-    [InlineData("AaAa_",
-        NamingConventions.SnakeCase,
-        NamingConventions.PascalSnakeCase)]
-
-    [InlineData("aAaA_",
-        NamingConventions.SnakeCase)]
-
-    [InlineData("AAAA",
-        NamingConventions.PascalCase,
-        NamingConventions.UpperCase)]
-
-    [InlineData("aaaa",
-        NamingConventions.CamelCase,
-        NamingConventions.LowerCase)]
-
-    [InlineData("AAAA_",
-        NamingConventions.SnakeCase,
-        NamingConventions.UpperSnakeCase,
-        NamingConventions.PascalSnakeCase)]
-
-    [InlineData("aaaa_",
-        NamingConventions.SnakeCase,
-        NamingConventions.LowerSnakeCase)]
-
-    [InlineData("_AAAA",
-        NamingConventions.SnakeCase)]
-
-    [InlineData("_aaaa",
-        NamingConventions.SnakeCase)]
-
-    [InlineData("_AaAa",
-        NamingConventions.SnakeCase)]
-
-    [InlineData("_aAaA",
-        NamingConventions.SnakeCase)]
-
-    [InlineData("__aAaA",
-        NamingConventions.SnakeCase)]
-
-    [InlineData("__AAAA",
-        NamingConventions.SnakeCase)]
-
-    [InlineData("__Aaaa",
-        NamingConventions.SnakeCase)]
-
+    [InlineData("A", NamingConventions.UpperCase, NamingConventions.PascalCase)]
+    [InlineData("a", NamingConventions.LowerCase, NamingConventions.CamelCase)]
+    [InlineData("Aa", NamingConventions.PascalCase)]
+    [InlineData("aA", NamingConventions.CamelCase)]
+    [InlineData("aa", NamingConventions.CamelCase, NamingConventions.LowerCase)]
+    [InlineData("A1", NamingConventions.UpperCase, NamingConventions.PascalCase)]
+    [InlineData("a1", NamingConventions.LowerCase, NamingConventions.CamelCase)]
+    [InlineData("A_", NamingConventions.UpperSnakeCase)]
+    [InlineData("a_", NamingConventions.LowerSnakeCase)]
+    [InlineData("A_A", NamingConventions.UpperSnakeCase)]
+    [InlineData("a_a", NamingConventions.LowerSnakeCase)]
+    [InlineData("A_1", NamingConventions.UpperSnakeCase)]
+    [InlineData("a_1", NamingConventions.LowerSnakeCase)]
+    [InlineData("AaAa", NamingConventions.PascalCase)]
+    [InlineData("aAaA", NamingConventions.CamelCase)]
+    [InlineData("AAAA", NamingConventions.PascalCase, NamingConventions.UpperCase)]
+    [InlineData("aaaa", NamingConventions.CamelCase, NamingConventions.LowerCase)]
+    [InlineData("AAAA_", NamingConventions.UpperSnakeCase)]
+    [InlineData("aaaa_", NamingConventions.LowerSnakeCase)]
+    [InlineData("_AAAA", NamingConventions.UpperSnakeCase)]
+    [InlineData("__AAAA", NamingConventions.UpperSnakeCase)]
+    [InlineData("_aaaa", NamingConventions.LowerSnakeCase)]
+    [InlineData("__aaaa", NamingConventions.LowerSnakeCase)]
+    [InlineData("__Aaaa", NamingConventions.PascalSnakeCase)]
     #endregion
     public void Helpers_Strings_Result_ShouldContains_ExpectedValues(string value, params NamingConventions[] expected)
     {
@@ -229,7 +153,6 @@ public class ConventionConvertorsTests
         Assert.Equal(expected, result);
     }
 
-
     [Theory]
     #region Inline data
     [InlineData("a", "a")]
@@ -302,44 +225,6 @@ public class ConventionConvertorsTests
     public void Helpers_Strings_ToPascalCase(string source, string expected)
     {
         var result = source.ToPascalCase();
-
-        Assert.Equal(expected, result);
-    }
-
-    [Theory]
-    #region Inline data
-    [InlineData("a", "a")]
-    [InlineData("A", "A")]
-    [InlineData("_a", "_a")]
-    [InlineData("_A", "_A")]
-    [InlineData("a_", "a_")]
-    [InlineData("A_", "A_")]
-    [InlineData("aa", "aa")]
-    [InlineData("AA", "A_A")]
-    [InlineData("_aa", "_aa")]
-    [InlineData("_AA", "_A_A")]
-    [InlineData("aa_", "aa_")]
-    [InlineData("AA_", "A_A_")]
-    [InlineData("aa_a", "aa_a")]
-    [InlineData("AA_a", "A_A_a")]
-    [InlineData("_aa_a", "_aa_a")]
-    [InlineData("_AA_a", "_A_A_a")]
-    [InlineData("aa_a_", "aa_a_")]
-    [InlineData("AA_a_", "A_A_a_")]
-    [InlineData("_aa_a_", "_aa_a_")]
-    [InlineData("_AA_a_", "_A_A_a_")]
-    [InlineData("_aa_aa_aa", "_aa_aa_aa")]
-    [InlineData("_AA_aa_aa", "_A_A_aa_aa")]
-    [InlineData("_aa_1a_aa", "_aa_1a_aa")]
-    [InlineData("_AA_1a_aa", "_A_A_1a_aa")]
-    [InlineData("aaa", "aaa")]
-    [InlineData("AAA", "A_A_A")]
-    [InlineData("aAaaAaaA", "a_Aaa_Aaa_A")]
-    [InlineData("AaaAaaAaa", "Aaa_Aaa_Aaa")]
-    #endregion
-    public void Helpers_Strings_ToSnakeCase(string source, string expected)
-    {
-        var result = source.ToSnakeCase();
 
         Assert.Equal(expected, result);
     }
