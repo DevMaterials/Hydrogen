@@ -1,46 +1,56 @@
 ﻿namespace Hydrogen.Abstraction.Enums;
 
 /// <summary>
-///     This enum will be used to define different kinds of the naming conventions.
+///     This enum defines different kinds of naming conventions.
 /// </summary>
 public enum NamingConventions
 {
     /// <summary>
-    ///     This convention enforces a name to only have upper case letters, digits, and start with a letter. 
+    ///     A name with this convention starts with a letter and contains only upper-case letters and digits. 
+    ///     For example, "THISISASAMPLE" is in the form of the <see cref="UpperCase"/>.
     /// </summary>
     UpperCase = 1,
 
     /// <summary>
-    ///     This convention enforces a name to only have lower case letters, digits, and start with a letter. 
+    ///     A name with this convention starts with a letter and contains only lower-case letters and digits. 
+    ///     For example, "thisisasample" is in the form of the <see cref="LowerCase"/>.
     /// </summary>
     LowerCase = 2,
 
     /// <summary>
-    ///     This convention enforces a name to only have letters, digits, and start with a lower case letter. 
+    ///     A name with this convention starts with a lower-case letter and contains only letters and digits. 
+    ///     For example, "thisIsASample" is in the form of the <see cref="CamelCase"/>.
     /// </summary>
     CamelCase = 3,
 
     /// <summary>
-    ///     This convention enforces a name to only have letters, digits, and start with an upper case letter. 
+    ///     A name with this convention starts with a upper-case letter and contains only letters and digits. 
+    ///     For multi-part names there is no separator in this convention and each part should start with 
+    ///     upper-case letter. For example, "ThisIsASample" is in the form of the <see cref="PascalCase"/>.
     /// </summary>
     PascalCase = 4,
 
     /// <summary>
-    ///     This convention enforces a name to only have lower case letters, digits, underlines, and start with
-    ///     one or more underlines or a lower case letter. 
+    ///     A name with this convention starts with a letter or underline(s) and contains only lower-case 
+    ///     letters, underline, and digits. For multi-part names, we should separate each part with an underline. 
+    ///     For example, "this_is_a_sample" or "_this_is_a_sample" are in the form of 
+    ///     the <see cref="LowerSnakeCase"/>.
     /// </summary>
     LowerSnakeCase = 5,
 
     /// <summary>
-    ///     This convention enforces a name to only have upper case letters, digits, underlines, and start with
-    ///     one or more underlines or an upper case letter.
+    ///     A name with this convention starts with a letter or underline(s) and contains only upper-case 
+    ///     letters, underline, and digits. For multi-part names, we should separate each part with an underline. 
+    ///     For example, "THIS_IS_A_SAMPLE" or "_THIS_IS_A_SAMPLE" are in the form of 
+    ///     the <see cref="UpperSnakeCase"/>.
     /// </summary>
-    UpperSnakeCase = 6,
+    UpperSnakeCase = 6, 
 
     /// <summary>
-    ///     This convention enforces a name to only have letters, digits, underlines, and start with one or more
-    ///     underlines or an upper case letter. Also, each underline at the middle of the name should be followed
-    ///     by an upper case letter.
+    ///     A name with this convention starts with a letter or underline(s) and contains only letters, underline, 
+    ///     and digits. For multi-part names, we should separate each part with an underline, but after that should
+    ///     place an upper-case letter. For example, "This_Is_A_Sample" or "_This_Is_A_Sample" are in the form of 
+    ///     the <see cref="PascalSnakeCase"/>.
     /// </summary>
     PascalSnakeCase = 7,
 }

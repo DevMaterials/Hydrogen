@@ -5,16 +5,16 @@ using System.Text;
 namespace Hydrogen.Abstraction.Helpers.Strings;
 
 /// <summary>
-///     This class contains a set of helper methods to identify the naming convention of the names 
-///     or change the convention of the name. 
+///     This class contains a set of helper methods to identify or convert the naming
+///     conventions of members of a class or struct.
 /// </summary>
-public static class NamingConventionConvertors
+public static class NamingConventionsHelpers
 {
     private static void BlockEmptyStrings(this string name, NamingConventions convention)
     {
         if (name.Length == 0)
         {
-            throw new NamingConventionException(name, convention);
+            throw new InvalidParameterException(nameof(name), name, "The name couldn't be empty or null string.");
         }
     }
     private static byte SkipInitialUnderlines(this string name, NamingConventions convention)
@@ -27,7 +27,7 @@ public static class NamingConventionConvertors
 
             if (startIndex == byte.MaxValue)
             {
-                throw new NamingConventionException(name, convention);
+                throw new InvalidParameterException(nameof(name), name, "The name couldn't start with lots of underlines.");
             }
         }
 
@@ -37,7 +37,7 @@ public static class NamingConventionConvertors
     {
         if (char.IsLetter(name[startIndex]) == false)
         {
-            throw new NamingConventionException(name, convention);
+            throw new InvalidParameterException(nameof(name), name, "The name should start with a letter due to applied convention.");
         }
         else
         {
@@ -111,11 +111,11 @@ public static class NamingConventionConvertors
     }
 
     /// <summary>
-    ///     This method will be used to get a list of conventions that the name is compatible with them. 
+    ///     This method will be used to get a list of all conventions that are compatible with the name. 
     /// </summary>
-    /// <param name="name">The name that we want to check it</param>
-    /// <returns>The list of compatible naming conventions.</returns>
-    public static NamingConventions[] DetectCases(this string name)
+    /// <param name="name">The name that should be checked</param>
+    /// <returns>The list of compatible naming conventions</returns>
+    public static NamingConventions[] DetectConventions(this string name)
     {
         List<NamingConventions> result =
         [
@@ -281,56 +281,56 @@ public static class NamingConventionConvertors
     /// <summary>
     ///     This method indicates that the name is compatible with <see cref="NamingConventions.LowerCase"/> or not.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The name that should be checked</param>
     /// <returns>return true if the name is compatible; otherwise returns false.</returns>
-    public static bool IsLowerCase(this string name) => name.DetectCases().Contains(NamingConventions.LowerCase);
+    public static bool IsLowerCase(this string name) => name.DetectConventions().Contains(NamingConventions.LowerCase);
 
     /// <summary>
     ///     This method indicates that the name is compatible with <see cref="NamingConventions.UpperCase"/> or not.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The name that should be checked</param>
     /// <returns>return true if the name is compatible; otherwise returns false.</returns>
-    public static bool IsUpperCase(this string name) => name.DetectCases().Contains(NamingConventions.UpperCase);
+    public static bool IsUpperCase(this string name) => name.DetectConventions().Contains(NamingConventions.UpperCase);
 
     /// <summary>
     ///     This method indicates that the name is compatible with <see cref="NamingConventions.CamelCase"/> or not.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The name that should be checked</param>
     /// <returns>return true if the name is compatible; otherwise returns false.</returns>
-    public static bool IsCamelCase(this string name) => name.DetectCases().Contains(NamingConventions.CamelCase);
+    public static bool IsCamelCase(this string name) => name.DetectConventions().Contains(NamingConventions.CamelCase);
 
     /// <summary>
     ///     This method indicates that the name is compatible with <see cref="NamingConventions.PascalCase"/> or not.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The name that should be checked</param>
     /// <returns>return true if the name is compatible; otherwise returns false.</returns>
-    public static bool IsPascalCase(this string name) => name.DetectCases().Contains(NamingConventions.PascalSnakeCase);
+    public static bool IsPascalCase(this string name) => name.DetectConventions().Contains(NamingConventions.PascalSnakeCase);
 
     /// <summary>
     ///     This method indicates that the name is compatible with <see cref="NamingConventions.LowerSnakeCase"/> or not.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The name that should be checked</param>
     /// <returns>return true if the name is compatible; otherwise returns false.</returns>
-    public static bool IsLowerSnakeCase(this string name) => name.DetectCases().Contains(NamingConventions.LowerSnakeCase);
+    public static bool IsLowerSnakeCase(this string name) => name.DetectConventions().Contains(NamingConventions.LowerSnakeCase);
 
     /// <summary>
     ///     This method indicates that the name is compatible with <see cref="NamingConventions.UpperSnakeCase"/> or not.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The name that should be checked</param>
     /// <returns>return true if the name is compatible; otherwise returns false.</returns>
-    public static bool IsUpperSnakeCase(this string name) => name.DetectCases().Contains(NamingConventions.UpperSnakeCase);
+    public static bool IsUpperSnakeCase(this string name) => name.DetectConventions().Contains(NamingConventions.UpperSnakeCase);
 
     /// <summary>
     ///     This method indicates that the name is compatible with <see cref="NamingConventions.PascalSnakeCase"/> or not.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The name that should be checked</param>
     /// <returns>return true if the name is compatible; otherwise returns false.</returns>
-    public static bool IsPascalSnakeCase(this string name) => name.DetectCases().Contains(NamingConventions.PascalSnakeCase);
+    public static bool IsPascalSnakeCase(this string name) => name.DetectConventions().Contains(NamingConventions.PascalSnakeCase);
 
     /// <summary>
-    ///     This method change the name apply required transformation to make it compatible with <see cref="NamingConventions.UpperCase"/>.
+    ///     This method will be used to make the name compatible with <see cref="NamingConventions.UpperCase"/> convention.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The name that should be changed</param>
     /// <returns>Returns the name with new naming convention and applied changes.</returns>
     public static string ToUpperCase(this string name)
     {
@@ -346,9 +346,9 @@ public static class NamingConventionConvertors
     }
 
     /// <summary>
-    ///     This method change the name apply required transformation to make it compatible with <see cref="NamingConventions.LowerCase"/>.
+    ///     This method will be used to make the name compatible with <see cref="NamingConventions.LowerCase"/> convention.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The name that should be changed</param>
     /// <returns>Returns the name with new naming convention and applied changes.</returns>
     public static string ToLowerCase(this string name)
     {
@@ -364,9 +364,9 @@ public static class NamingConventionConvertors
     }
 
     /// <summary>
-    ///     This method change the name apply required transformation to make it compatible with <see cref="NamingConventions.CamelCase"/>.
+    ///     This method will be used to make the name compatible with <see cref="NamingConventions.CamelCase"/> convention.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The name that should be changed</param>
     /// <returns>Returns the name with new naming convention and applied changes.</returns>
     public static string ToCamelCase(this string name)
     {
@@ -382,9 +382,9 @@ public static class NamingConventionConvertors
     }
 
     /// <summary>
-    ///     This method change the name apply required transformation to make it compatible with <see cref="NamingConventions.PascalCase"/>.
+    ///     This method will be used to make the name compatible with <see cref="NamingConventions.PascalCase"/> convention.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The name that should be changed</param>
     /// <returns>Returns the name with new naming convention and applied changes.</returns>
     public static string ToPascalCase(this string name)
     {
@@ -400,9 +400,9 @@ public static class NamingConventionConvertors
     }
 
     /// <summary>
-    ///     This method change the name apply required transformation to make it compatible with <see cref="NamingConventions.LowerSnakeCase"/>.
+    ///     This method will be used to make the name compatible with <see cref="NamingConventions.LowerSnakeCase"/> convention.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The name that should be changed</param>
     /// <returns>Returns the name with new naming convention and applied changes.</returns>
     public static string ToLowerSnakeCase(this string name)
     {
@@ -428,9 +428,9 @@ public static class NamingConventionConvertors
     }
 
     /// <summary>
-    ///     This method change the name apply required transformation to make it compatible with <see cref="NamingConventions.UpperSnakeCase"/>.
+    ///     This method will be used to make the name compatible with <see cref="NamingConventions.UpperSnakeCase"/> convention.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The name that should be changed</param>
     /// <returns>Returns the name with new naming convention and applied changes.</returns>
     public static string ToUpperSnakeCase(this string name)
     {
@@ -456,9 +456,9 @@ public static class NamingConventionConvertors
     }
 
     /// <summary>
-    ///     This method change the name apply required transformation to make it compatible with <see cref="NamingConventions.PascalSnakeCase"/>.
+    ///     This method will be used to make the name compatible with <see cref="NamingConventions.PascalSnakeCase"/> convention.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">The name that should be changed</param>
     /// <returns>Returns the name with new naming convention and applied changes.</returns>
     public static string ToPascalSnakeCase(this string name)
     {

@@ -5,7 +5,9 @@ VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hydrogen.Abstraction", "src\Hydrogen.Abstraction\Hydrogen.Abstraction.csproj", "{A66665D6-5FAB-41ED-B56A-C964870A8977}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hydrogen.Abstraction.Tests", "tests\Hydrogen.Abstraction.Tests\Hydrogen.Abstraction.Tests.csproj", "{E91F45FB-6E08-4208-863A-E17725C3165C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Abstractions", "Abstractions", "{1B427638-718D-4C86-9D6A-B95159629FF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Built-in Services", "Built-in Services", "{43589F2B-77F3-49F3-9F54-60D0EEB3D246}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,13 +19,12 @@ Global
 		{A66665D6-5FAB-41ED-B56A-C964870A8977}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A66665D6-5FAB-41ED-B56A-C964870A8977}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A66665D6-5FAB-41ED-B56A-C964870A8977}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E91F45FB-6E08-4208-863A-E17725C3165C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E91F45FB-6E08-4208-863A-E17725C3165C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E91F45FB-6E08-4208-863A-E17725C3165C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E91F45FB-6E08-4208-863A-E17725C3165C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A66665D6-5FAB-41ED-B56A-C964870A8977} = {1B427638-718D-4C86-9D6A-B95159629FF3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7272C5B-E1EE-47EB-8C64-C55A47CE124A}
