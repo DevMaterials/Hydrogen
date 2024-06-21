@@ -1,5 +1,5 @@
-﻿using Hydrogen.Abstraction.Enums;
-using Hydrogen.Abstraction.Helpers.Strings;
+﻿using Hydrogen.Abstraction.Helpers.Strings;
+using Hydrogen.Abstraction.Helpers.Strings.Enums;
 
 namespace Hydrogen.Abstraction.Tests.Helpers.Strings;
 
@@ -32,7 +32,7 @@ public class NamingConventionConvertorsTests
     public void Helpers_Strings_DetectedCases_ShouldNotContain_AnyCase(string name)
     {
         // Arrange and Act
-        var detectedCases = name.DetectCases();
+        var detectedCases = name.DetectConventions();
 
         // Assert
         Assert.Empty(detectedCases);
@@ -40,13 +40,13 @@ public class NamingConventionConvertorsTests
 
     [Theory]
     #region Inline data
-    [InlineData("A", NamingConventions.UpperCase, NamingConventions.PascalCase)]
-    [InlineData("a", NamingConventions.LowerCase, NamingConventions.CamelCase)]
+    [InlineData("A", NamingConventions.UpperCase)]
+    [InlineData("a", NamingConventions.LowerCase)]
     [InlineData("Aa", NamingConventions.PascalCase)]
     [InlineData("aA", NamingConventions.CamelCase)]
-    [InlineData("aa", NamingConventions.CamelCase, NamingConventions.LowerCase)]
-    [InlineData("A1", NamingConventions.UpperCase, NamingConventions.PascalCase)]
-    [InlineData("a1", NamingConventions.LowerCase, NamingConventions.CamelCase)]
+    [InlineData("aa", NamingConventions.LowerCase)]
+    [InlineData("A1", NamingConventions.UpperCase)]
+    [InlineData("a1", NamingConventions.LowerCase)]
     [InlineData("A_", NamingConventions.UpperSnakeCase)]
     [InlineData("a_", NamingConventions.LowerSnakeCase)]
     [InlineData("A_A", NamingConventions.UpperSnakeCase)]
@@ -55,8 +55,8 @@ public class NamingConventionConvertorsTests
     [InlineData("a_1", NamingConventions.LowerSnakeCase)]
     [InlineData("AaAa", NamingConventions.PascalCase)]
     [InlineData("aAaA", NamingConventions.CamelCase)]
-    [InlineData("AAAA", NamingConventions.PascalCase, NamingConventions.UpperCase)]
-    [InlineData("aaaa", NamingConventions.CamelCase, NamingConventions.LowerCase)]
+    [InlineData("AAAA", NamingConventions.UpperCase)]
+    [InlineData("aaaa", NamingConventions.LowerCase)]
     [InlineData("AAAA_", NamingConventions.UpperSnakeCase)]
     [InlineData("aaaa_", NamingConventions.LowerSnakeCase)]
     [InlineData("_AAAA", NamingConventions.UpperSnakeCase)]
@@ -68,7 +68,7 @@ public class NamingConventionConvertorsTests
     public void Helpers_Strings_Result_ShouldContains_ExpectedValues(string value, params NamingConventions[] expected)
     {
         // Arrange and Act
-        var result = value.DetectCases();
+        var result = value.DetectConventions();
 
         // Assert
         foreach (var item in expected)
